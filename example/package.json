@@ -1,0 +1,54 @@
+{
+  "name": "sandbox",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "flipper": "npx flipper-server@latest",
+    "start": "expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "clip": "expo run:ios --scheme bndktClip",
+    "web": "expo start --web",
+    "test": "jest --watchAll",
+    "prebuild": "expo prebuild --platform ios --clean",
+    "build:local": "eas build --profile preview --platform ios --local",
+    "build:sim": "eas build --platform ios --profile simulator --local",
+    "build:prod": "eas build --platform ios --auto-submit",
+    "submit": "eas submit --platform ios"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^13.0.0",
+    "@react-navigation/native": "^6.1.6",
+    "expo": "~48.0.11",
+    "expo-apple-authentication": "~6.0.1",
+    "expo-build-properties": "~0.6.0",
+    "expo-dev-client": "~2.2.1",
+    "expo-linking": "~4.0.1",
+    "expo-router": "1.5.3",
+    "expo-splash-screen": "~0.18.1",
+    "expo-status-bar": "~1.4.4",
+    "expo-system-ui": "~2.2.1",
+    "expo-web-browser": "~12.1.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.71.6",
+    "react-native-app-clip": "latest",
+    "react-native-gesture-handler": "~2.9.0",
+    "react-native-purchases": "5.13.2",
+    "react-native-safe-area-context": "4.5.1",
+    "react-native-screens": "~3.20.0",
+    "react-native-web": "~0.18.10",
+    "react-native-widget-extension": "latest"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.21.4",
+    "@types/react": "18.0.35",
+    "jest": "^29.5.0",
+    "jest-expo": "~48.0.2",
+    "react-test-renderer": "18.2.0",
+    "typescript": "^5.0.4"
+  }
+}
