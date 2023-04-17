@@ -5,9 +5,9 @@ import { withPodfile } from "./withPodfile";
 import { withXcode } from "./withXcode";
 
 const withLiveActivities: ConfigPlugin<{
-  frequentUpdates: boolean;
+  frequentUpdates?: boolean;
   widgetsFolder?: string;
-}> = (config, { frequentUpdates, widgetsFolder = "widgets" }) => {
+}> = (config, { frequentUpdates = false, widgetsFolder = "widgets" }) => {
   const targetName = `${IOSConfig.XcodeUtils.sanitizedName(
     config.name
   )}Widgets`;
