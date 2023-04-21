@@ -16,7 +16,7 @@ And add the following config to app.json (where widgetsFolder is the path to the
     "plugins": [
         [
             "react-native-widget-extension",
-            { frequentUpdates: true, widgetsFolder: "PizzaDeliveryWidgets" },
+            { "frequentUpdates": true, "widgetsFolder": "PizzaDeliveryWidgets" },
         ],
     ]
 }
