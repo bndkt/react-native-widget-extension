@@ -5,7 +5,7 @@ import * as path from "path";
 
 import { getWidgetExtensionEntitlements } from "./lib/getWidgetExtensionEntitlements";
 
-export const withAppClipEntitlements: ConfigPlugin<{
+export const withWidgetExtensionEntitlements: ConfigPlugin<{
   targetName: string;
   targetPath: string;
   groupIdentifier: string;
