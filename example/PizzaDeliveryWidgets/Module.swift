@@ -17,11 +17,6 @@ public class ReactNativeWidgetExtensionModule: Module {
         // The module will be accessible from `requireNativeModule('ReactNativeAppClip')` in JavaScript.
         Name("ReactNativeWidgetExtension")
         
-        // Sets constant properties on the module. Can take a dictionary or a closure that returns a dictionary.
-        Constants([
-            "PI": Double.pi
-        ])
-        
         // Defines event names that the module can send to JavaScript.
         Events("onChange")
         
