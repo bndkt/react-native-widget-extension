@@ -5,13 +5,11 @@ export const withConfig: ConfigPlugin<{
   targetName: string;
 }> = (config, { bundleIdentifier, targetName }) => {
   let configIndex: null | number = null;
-  config.extra?.eas?.build?.experimental?.ios?.appExtensions?.forEach(
-    (ext: any, index: number) => {
-      if (ext.targetName === targetName) {
-        configIndex = index;
-      }
+  config.extra?.eas?.build?.experimental?.ios?.appExtensions?.forEach((ext: any, index: number) => {
+    if (ext.targetName === targetName) {
+      configIndex = index;
     }
-  );
+  });
 
   if (!configIndex) {
     config.extra = {
@@ -25,8 +23,7 @@ export const withConfig: ConfigPlugin<{
             ios: {
               ...config.extra?.eas?.build?.experimental?.ios,
               appExtensions: [
-                ...(config.extra?.eas?.build?.experimental?.ios
-                  ?.appExtensions ?? []),
+                ...(config.extra?.eas?.build?.experimental?.ios?.appExtensions ?? []),
                 {
                   targetName,
                   bundleIdentifier,
@@ -41,10 +38,9 @@ export const withConfig: ConfigPlugin<{
   }
 
   if (configIndex != null && config.extra) {
-    const appClipConfig =
-      config.extra.eas.build.experimental.ios.appExtensions[configIndex];
+    const widgetsExtensionConfig = config.extra.eas.build.experimental.ios.appExtensions[configIndex];
 
-    appClipConfig.entitlements = {};
+    widgetsExtensionConfig.entitlements = {};
   }
 
   return config;
