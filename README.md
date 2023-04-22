@@ -16,11 +16,15 @@ And add the following config to app.json (where widgetsFolder is the path to the
     "plugins": [
         [
             "react-native-widget-extension",
-            { frequentUpdates: true, widgetsFolder: "PizzaDeliveryWidgets" },
+            { "frequentUpdates": true, "widgetsFolder": "PizzaDeliveryWidgets", "groupIdentifier": "group.my.app.groupName" },
         ],
     ]
 }
 ```
+
+It is highly recommended to specify the `groupIdentifier` since it assigns both the main app target and the widget target to the same app group
+which enables you to more easily communicate between the widget and the main app. Do note that the `groupIdentifier` **must** start with `group.`
+as it is a requirement imposed by Apple.
 
 Then in React land, you can use the following:
 
