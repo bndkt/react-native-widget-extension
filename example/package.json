@@ -35,13 +35,12 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.71.6",
-    "react-native-app-clip": "latest",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-purchases": "5.13.2",
     "react-native-safe-area-context": "4.5.1",
     "react-native-screens": "~3.20.0",
     "react-native-web": "~0.18.10",
-    "react-native-widget-extension": "latest"
+    "react-native-widget-extension": "file:.."
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",
