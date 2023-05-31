@@ -40,5 +40,8 @@
     "expo": "*",
     "react": "*",
     "react-native": "*"
+  },
+  "engines": {
+    "node": ">=18.16.0"
   }
 }

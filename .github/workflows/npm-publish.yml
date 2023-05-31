@@ -12,13 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          node-version: 16
-          registry-url: https://registry.npmjs.org/
-      - run: yarn install
-      - run: yarn build
-      - run: npm config set '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
+          node-version: 18.16.0
+          cache: "pnpm"
+      - run: pnpm install
+      - run: pnpm build
+      - run: pnpm config set '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
         env:
           NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
-      - run: npm publish --no-git-checks
+      - run: pnpm publish --no-git-checks
