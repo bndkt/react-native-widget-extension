@@ -7,12 +7,15 @@ import { withXcode } from "./withXcode";
 const withLiveActivities: ConfigPlugin<{
   frequentUpdates?: boolean;
   widgetsFolder?: string;
-}> = (config, { frequentUpdates = false, widgetsFolder = "widgets" }) => {
+  deploymentTarget?: string;
+}> = (
+  config,
+  { frequentUpdates, widgetsFolder = "widgets", deploymentTarget = "16.2" }
+) => {
   const targetName = `${IOSConfig.XcodeUtils.sanitizedName(
     config.name
   )}Widgets`;
   const bundleIdentifier = `${config.ios?.bundleIdentifier}.${targetName}`;
-  const deploymentTarget = "16.2";
 
   config.ios = {
     ...config.ios,
