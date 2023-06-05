@@ -32,5 +32,48 @@ import {
   endActivity,
 } from "react-native-widget-extension";
 
-startActivity(Number(numberOfPizzas), "4343", "$32.23", driverName, 47, 43);
+startActivity(3, "4343", "$32.23", driverName, 47, 43);
+```
+
+## Deployment Target
+
+By default, this module adds a minimum deployment target of iOS 16.2, because otherwise Swift compilation fails if you try to use Live Activities. If you want to support earliert versions of iOS, you can manually set the deployment target via plugin config:
+
+```json
+"expo": {
+    "name": "my-app",
+    "plugins": [
+        [
+            "react-native-widget-extension",
+            { "deploymentTarget": "14.0" },
+        ],
+    ]
+}
+```
+
+If you do this and you still use Live Activities in Swift, you have to make sure to guard the code that can only run on iOS 16.2 and later like this:
+
+```swift
+import SwiftUI
+import WidgetKit
+
+@main
+struct PizzaDeliveryWidgetBundle: WidgetBundle {
+    var body: some Widget {
+        PizzaDeliveryWidgets()
+
+        if #available(iOS 16.2, *) {
+            PizzaDeliveryLiveActivity()
+        }
+    }
+}
+```
+
+and
+
+```swift
+@available(iOS 16.2, *)
+struct LockScreenLiveActivityView: View {
+    ...
+}
 ```
