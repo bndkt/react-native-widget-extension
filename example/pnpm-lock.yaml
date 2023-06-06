@@ -24,8 +24,8 @@ dependencies:
     specifier: 0.71.8
     version: 0.71.8(@babel/core@7.20.2)(@babel/preset-env@7.22.4)(react@18.2.0)
   react-native-widget-extension:
-    specifier: 0.0.2
-    version: 0.0.2(expo@48.0.18)(react-native@0.71.8)(react@18.2.0)
+    specifier: file:..
+    version: file:..(expo@48.0.18)(react-native@0.71.8)(react@18.2.0)
 
 devDependencies:
   '@babel/core':
@@ -5893,22 +5893,6 @@ packages:
     resolution: {integrity: sha512-7F6bD7B8Xsn3JllxcwHhFcsl9aHIig47+3eN4IHFNqfLhZr++3ElDrcqfMzugM+niWbaMi7bJ0kAkAL8eCpdWg==}
     dev: false
 
-  /react-native-widget-extension@0.0.2(expo@48.0.18)(react-native@0.71.8)(react@18.2.0):
-    resolution: {integrity: sha512-kPcRNXOGPStFFF1KhDVetE+JyJE+3Fv2bZeh/vVvNt1z57VsSRoIbF/KIUuXn7kDmYyGnCc8EiCJaZ4XU+duKA==}
-    engines: {node: '>=18.16.0'}
-    peerDependencies:
-      expo: '*'
-      react: '*'
-      react-native: '*'
-    dependencies:
-      '@expo/config-plugins': 6.0.2
-      expo: 48.0.18(@babel/core@7.20.2)
-      react: 18.2.0
-      react-native: 0.71.8(@babel/core@7.20.2)(@babel/preset-env@7.22.4)(react@18.2.0)
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /react-native@0.71.8(@babel/core@7.20.2)(@babel/preset-env@7.22.4)(react@18.2.0):
     resolution: {integrity: sha512-ftMAuhpgTkbHU9brrqsEyxcNrpYvXKeATY+if22Nfhhg1zW+6wn95w9otwTnA3xHkljPCbng8mUhmmERjGEl7g==}
     engines: {node: '>=14'}
@@ -7264,4 +7248,23 @@ packages:
   /yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+    dev: false
+
+  file:..(expo@48.0.18)(react-native@0.71.8)(react@18.2.0):
+    resolution: {directory: .., type: directory}
+    id: file:..
+    name: react-native-widget-extension
+    version: 0.0.2
+    engines: {node: '>=18.16.0'}
+    peerDependencies:
+      expo: '*'
+      react: '*'
+      react-native: '*'
+    dependencies:
+      '@expo/config-plugins': 6.0.2
+      expo: 48.0.18(@babel/core@7.20.2)
+      react: 18.2.0
+      react-native: 0.71.8(@babel/core@7.20.2)(@babel/preset-env@7.22.4)(react@18.2.0)
+    transitivePeerDependencies:
+      - supports-color
     dev: false

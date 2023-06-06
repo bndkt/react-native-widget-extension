@@ -15,7 +15,7 @@
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-native": "0.71.8",
-    "react-native-widget-extension": "0.0.2",
+    "react-native-widget-extension": "file:..",
     "expo-splash-screen": "~0.18.2"
   },
   "devDependencies": {
