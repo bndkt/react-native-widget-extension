@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "example",
-    "slug": "example",
+    "slug": "widget-example",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -11,11 +11,10 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bndkt.widget-example"
     },
     "android": {
       "adaptiveIcon": {
@@ -25,6 +24,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6ccdd25b-8f32-48f8-96eb-d39f7f554a3f"
+      }
     }
   }
 }
