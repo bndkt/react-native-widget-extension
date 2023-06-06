@@ -6,7 +6,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "prebuild": "EXPO_NO_GIT_STATUS=true expo prebuild -p ios --clean",
+    "prebuild": "EXPO_NO_GIT_STATUS=true expo prebuild -p ios --clean --no-install",
     "build": "eas build -e development-simulator -p ios --local"
   },
   "dependencies": {
@@ -15,7 +15,7 @@
     "expo-status-bar": "~1.4.4",
     "react": "18.2.0",
     "react-native": "0.71.8",
-    "react-native-widget-extension": "file:..",
+    "react-native-widget-extension": "0.0.2",
     "expo-splash-screen": "~0.18.2"
   },
   "devDependencies": {
