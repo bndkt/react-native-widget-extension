@@ -16,7 +16,7 @@ And add the following config to app.json (where widgetsFolder is the path to the
     "plugins": [
         [
             "react-native-widget-extension",
-            { "frequentUpdates": true, "widgetsFolder": "PizzaDeliveryWidgets" },
+            { "frequentUpdates": true, "widgetsFolder": "_widgets/PizzaDelivery" },
         ],
     ]
 }
@@ -34,6 +34,27 @@ import {
 
 startActivity(3, "4343", "$32.23", driverName, 47, 43);
 ```
+
+## Plugin configuration options
+
+- frequentUpdates (boolean, default: false): Depending on this param, NSSupportsLiveActivitiesFrequentUpdates will be set
+- widgetsFolder (string, default: "widgets"): Path from the project root to the folder containing the Swift widget files
+- deploymentTarget (string, default: "16.2"): The minimum deployment target for the app
+<!--
+- moduleFileName (string, default: "Module.swift"): File within the widget folder that defines the native module
+- attributesFileName (string): File within the widget folder that defined the widget attributes
+  -->
+
+## Example
+
+For a minimal example app, see the folder **example**. Example code for widgets can be found in the \*\*\_widgets\_\_ folder.
+
+Some background on how the **PizzaDelivery** example works:
+
+- Assets.xcassets and Info.plist: Automatically created by Xcode when you create a widget
+- Attributes.swift: The ActivityAttributes for the Live Activity are defined here. By default, this file should be named "Attributes.swift".
+- Module.swift: This file defined the native module that can then be used from React land to start/stop/update the live activity. By default, this file should be named "Module.swift".
+- The rest of the folder can be Swift files that define widgets, views, etc. and can be named and divided between files however you want.
 
 ## Deployment Target
 
