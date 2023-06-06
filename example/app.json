@@ -35,7 +35,7 @@
         "react-native-widget-extension",
         {
           "frequentUpdates": true,
-          "widgetsFolder": "../_widgets/EmojiRangerWidgetExtension"
+          "widgetsFolder": "../_widgets/EmojiRanger"
         }
       ]
     ]
