@@ -29,6 +29,15 @@
       "eas": {
         "projectId": "6ccdd25b-8f32-48f8-96eb-d39f7f554a3f"
       }
-    }
+    },
+    "plugins": [
+      [
+        "react-native-widget-extension",
+        {
+          "frequentUpdates": true,
+          "widgetsFolder": "../_widgets/EmojiRangerWidgetExtension"
+        }
+      ]
+    ]
   }
 }
