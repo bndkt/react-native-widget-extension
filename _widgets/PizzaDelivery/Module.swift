@@ -39,8 +39,8 @@ public class ReactNativeWidgetExtensionModule: Module {
                 var future = Calendar.current.date(byAdding: .minute, value: (Int(minutes) ?? 0), to: Date())!
                 future = Calendar.current.date(byAdding: .second, value: (Int(seconds) ?? 0), to: future)!
                 let date = Date.now...future
-                let initialContentState = PizzaDeliveryAttributes.ContentState(driverName: driverName, deliveryTimer: date)
-                let activityAttributes = PizzaDeliveryAttributes(numberOfPizzas: numberOfPizzas, totalAmount: totalAmount, orderNumber: orderNumber)
+                let initialContentState = Attributes.ContentState(driverName: driverName, deliveryTimer: date)
+                let activityAttributes = Attributes(numberOfPizzas: numberOfPizzas, totalAmount: totalAmount, orderNumber: orderNumber)
                 
                 let activityContent = ActivityContent(state: initialContentState, staleDate: Calendar.current.date(byAdding: .minute, value: 30, to: Date())!)
                 
@@ -61,12 +61,12 @@ public class ReactNativeWidgetExtensionModule: Module {
                 var future = Calendar.current.date(byAdding: .minute, value: (Int(minutes) ?? 0), to: Date())!
                 future = Calendar.current.date(byAdding: .second, value: (Int(seconds) ?? 0), to: future)!
                 let date = Date.now...future
-                let updatedDeliveryStatus = PizzaDeliveryAttributes.PizzaDeliveryStatus(driverName: driverName, deliveryTimer: date)
+                let updatedDeliveryStatus = Attributes.PizzaDeliveryStatus(driverName: driverName, deliveryTimer: date)
                 let alertConfiguration = AlertConfiguration(title: "Delivery update", body: "Your pizza order will arrive soon.", sound: .default)
                 let updatedContent = ActivityContent(state: updatedDeliveryStatus, staleDate: nil)
                 
                 Task {
-                    for activity in Activity<PizzaDeliveryAttributes>.activities {
+                    for activity in Activity<Attributes>.activities {
                         await activity.update(updatedContent, alertConfiguration: alertConfiguration)
                         logger.info("Updated the Live Activity: \(activity.id)")
                     }
@@ -79,11 +79,11 @@ public class ReactNativeWidgetExtensionModule: Module {
             logger.info("endActivity()")
             
             if #available(iOS 16.2, *) {
-                let finalDeliveryStatus = PizzaDeliveryAttributes.PizzaDeliveryStatus(driverName: driverName, deliveryTimer: Date.now...Date())
+                let finalDeliveryStatus = Attributes.PizzaDeliveryStatus(driverName: driverName, deliveryTimer: Date.now...Date())
                 let finalContent = ActivityContent(state: finalDeliveryStatus, staleDate: nil)
                 
                 Task {
-                    for activity in Activity<PizzaDeliveryAttributes>.activities {
+                    for activity in Activity<Attributes>.activities {
                         await activity.end(finalContent, dismissalPolicy: .default)
                         logger.info("Ending the Live Activity: \(activity.id)")
                     }

@@ -1,7 +1,7 @@
 import Foundation
 import ActivityKit
 
-struct PizzaDeliveryAttributes: ActivityAttributes {
+struct Attributes: ActivityAttributes {
     public typealias PizzaDeliveryStatus = ContentState
     
     public struct ContentState: Codable, Hashable {

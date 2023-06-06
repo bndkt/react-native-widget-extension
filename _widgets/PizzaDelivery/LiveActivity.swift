@@ -5,7 +5,7 @@ import SwiftUI
 @available(iOS 16.2, *)
 struct PizzaDeliveryLiveActivity: Widget {
     var body: some WidgetConfiguration {
-        ActivityConfiguration(for: PizzaDeliveryAttributes.self) { context in
+        ActivityConfiguration(for: Attributes.self) { context in
             LockScreenLiveActivityView(context: context)
         } dynamicIsland: { context in
             DynamicIsland {
@@ -71,7 +71,7 @@ struct PizzaDeliveryLiveActivity: Widget {
 
 @available(iOS 16.2, *)
 struct LockScreenLiveActivityView: View {
-    let context: ActivityViewContext<PizzaDeliveryAttributes>
+    let context: ActivityViewContext<Attributes>
     
     var body: some View {
         VStack {
