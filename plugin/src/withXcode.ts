@@ -15,9 +15,18 @@ export const withXcode: ConfigPlugin<{
   bundleIdentifier: string;
   deploymentTarget: string;
   widgetsFolder: string;
+  moduleFileName: string;
+  attributesFileName: string;
 }> = (
   config,
-  { targetName, bundleIdentifier, deploymentTarget, widgetsFolder }
+  {
+    targetName,
+    bundleIdentifier,
+    deploymentTarget,
+    widgetsFolder,
+    moduleFileName,
+    attributesFileName,
+  }
 ) => {
   return withXcodeProject(config, (config) => {
     const xcodeProject = config.modResults;
@@ -30,7 +39,12 @@ export const withXcode: ConfigPlugin<{
 
     const targetPath = path.join(platformProjectRoot, targetName);
 
-    const widgetFiles = getWidgetFiles(widgetsPath, targetPath);
+    const widgetFiles = getWidgetFiles(
+      widgetsPath,
+      targetPath,
+      moduleFileName,
+      attributesFileName
+    );
 
     const xCConfigurationList = addXCConfigurationList(xcodeProject, {
       targetName,

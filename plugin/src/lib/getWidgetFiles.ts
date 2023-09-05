@@ -8,7 +8,12 @@ export type WidgetFiles = {
   assetDirectories: string[];
 };
 
-export function getWidgetFiles(widgetsPath: string, targetPath: string) {
+export function getWidgetFiles(
+  widgetsPath: string,
+  targetPath: string,
+  moduleFileName: string,
+  attributesFileName: string
+) {
   const widgetFiles: WidgetFiles = {
     swiftFiles: [],
     entitlementFiles: [],
@@ -27,7 +32,7 @@ export function getWidgetFiles(widgetsPath: string, targetPath: string) {
       const fileExtension = file.split(".").pop();
 
       if (fileExtension === "swift") {
-        if (file !== "Module.swift") {
+        if (file !== moduleFileName) {
           widgetFiles.swiftFiles.push(file);
         }
       } else if (fileExtension === "entitlements") {
@@ -53,17 +58,14 @@ export function getWidgetFiles(widgetsPath: string, targetPath: string) {
   // Copy Module.swift and Attributes.swift
   const modulePath = path.join(__dirname, "../../../ios");
   copyFileSync(
-    path.join(widgetsPath, "Module.swift"),
+    path.join(widgetsPath, moduleFileName),
     path.join(modulePath, "Module.swift")
   );
-  console.log(
-    path.join(widgetsPath, "Module.swift"),
-    path.join(modulePath, "Module.swift")
-  );
-  copyFileSync(
-    path.join(widgetsPath, "Attributes.swift"),
-    path.join(modulePath, "Attributes.swift")
-  );
+  attributesFileName &&
+    copyFileSync(
+      path.join(widgetsPath, attributesFileName),
+      path.join(modulePath, "Attributes.swift")
+    );
 
   // Copy directories
   widgetFiles.assetDirectories.forEach((directory) => {

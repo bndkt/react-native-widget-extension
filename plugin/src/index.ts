@@ -8,9 +8,17 @@ const withLiveActivities: ConfigPlugin<{
   frequentUpdates?: boolean;
   widgetsFolder?: string;
   deploymentTarget?: string;
+  moduleFileName?: string;
+  attributesFileName?: string;
 }> = (
   config,
-  { frequentUpdates, widgetsFolder = "widgets", deploymentTarget = "16.2" }
+  {
+    frequentUpdates = false,
+    widgetsFolder = "widgets",
+    deploymentTarget = "16.2",
+    moduleFileName = "Module.swift",
+    attributesFileName = "Attributes.swift",
+  }
 ) => {
   const targetName = `${IOSConfig.XcodeUtils.sanitizedName(
     config.name
@@ -34,6 +42,8 @@ const withLiveActivities: ConfigPlugin<{
         bundleIdentifier,
         deploymentTarget,
         widgetsFolder,
+        moduleFileName,
+        attributesFileName,
       },
     ],
     [withPodfile, { targetName }],
