@@ -1,4 +1,4 @@
-import { XcodeProject } from "expo/config-plugins";
+import { XcodeProject } from "@expo/config-plugins";
 import * as util from "util";
 
 import { WidgetFiles } from "../lib/getWidgetFiles";
