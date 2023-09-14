@@ -41,5 +41,41 @@ public class ReactNativeWidgetExtensionModule: Module {
                 }
             }
         }
+
+        Function("updateActivity") { (quarter: Int, scoreLeft: Int, scoreRight: Int, bottomText: String) -> Void in
+            let logger = Logger()
+            logger.info("updateActivity()")
+            
+            if #available(iOS 16.2, *) {
+                let future = Calendar.current.date(byAdding: .minute, value: (Int(15) ), to: Date())!
+                let contentState = SportsLiveActivityAttributes.ContentState(quarter: quarter, scoreLeft: scoreLeft, scoreRight: scoreRight, bottomText: bottomText)
+                let alertConfiguration = AlertConfiguration(title: "Score update", body: bottomText, sound: .default)
+                let updatedContent = ActivityContent(state: contentState, staleDate: nil)
+                
+                Task {
+                    for activity in Activity<SportsLiveActivityAttributes>.activities {
+                        await activity.update(updatedContent, alertConfiguration: alertConfiguration)
+                        logger.info("Updated the Live Activity: \(activity.id)")
+                    }
+                }
+            }
+        }
+        
+        Function("endActivity") { (quarter: Int, scoreLeft: Int, scoreRight: Int, bottomText: String) -> Void in
+            let logger = Logger()
+            logger.info("endActivity()")
+            
+            if #available(iOS 16.2, *) {
+                let contentState = SportsLiveActivityAttributes.ContentState(quarter: quarter, scoreLeft: scoreLeft, scoreRight: scoreRight, bottomText: bottomText)
+                let finalContent = ActivityContent(state: contentState, staleDate: nil)
+                
+                Task {
+                    for activity in Activity<SportsLiveActivityAttributes>.activities {
+                        await activity.end(finalContent, dismissalPolicy: .default)
+                        logger.info("Ending the Live Activity: \(activity.id)")
+                    }
+                }
+            }
+        }
     }
 }
