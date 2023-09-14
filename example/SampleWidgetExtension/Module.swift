@@ -35,7 +35,7 @@ public class ReactNativeWidgetExtensionModule: Module {
                 
                 do {
                     let activity = try Activity.request(attributes: attributes, content: activityContent)
-                    logger.info("Requested a Live Activity \(String(describing: deliveryActivity.id)).")
+                    logger.info("Requested a Live Activity \(String(describing: activity.id)).")
                 } catch (let error) {
                     logger.info("Error requesting Live Activity \(error.localizedDescription).")
                 }
@@ -49,7 +49,7 @@ public class ReactNativeWidgetExtensionModule: Module {
             if #available(iOS 16.2, *) {
                 let future = Calendar.current.date(byAdding: .minute, value: (Int(15) ), to: Date())!
                 let contentState = SportsLiveActivityAttributes.ContentState(quarter: quarter, scoreLeft: scoreLeft, scoreRight: scoreRight, bottomText: bottomText)
-                let alertConfiguration = AlertConfiguration(title: "Score update", body: bottomText, sound: .default)
+                let alertConfiguration = AlertConfiguration(title: "Score update", body: "This is the alert text", sound: .default)
                 let updatedContent = ActivityContent(state: contentState, staleDate: nil)
                 
                 Task {

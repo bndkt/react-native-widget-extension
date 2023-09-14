@@ -10,17 +10,41 @@ export default function App() {
   return (
     <View style={styles.container}>
       {ReactNativeWidgetExtension.areActivitiesEnabled() ? (
-        <Button
-          onPress={() =>
-            ReactNativeWidgetExtension.startActivity(
-              quarter,
-              scoreLeft,
-              scoreRight,
-              bottomText
-            )
-          }
-          title="Start Live Activity"
-        />
+        <>
+          <Button
+            onPress={() =>
+              ReactNativeWidgetExtension.startActivity(
+                quarter,
+                scoreLeft,
+                scoreRight,
+                bottomText
+              )
+            }
+            title="Start Live Activity"
+          />
+          <Button
+            onPress={() =>
+              ReactNativeWidgetExtension.updateActivity(
+                quarter + 1,
+                scoreLeft + 2,
+                scoreRight + 3,
+                "Updated bottom text!"
+              )
+            }
+            title="Update Live Activity"
+          />
+          <Button
+            onPress={() =>
+              ReactNativeWidgetExtension.endActivity(
+                quarter + 2,
+                scoreLeft + 3,
+                scoreRight + 4,
+                "The end."
+              )
+            }
+            title="End Live Activity"
+          />
+        </>
       ) : null}
     </View>
   );
