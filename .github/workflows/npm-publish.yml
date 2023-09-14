@@ -19,6 +19,10 @@ jobs:
         run: bun install
       - name: Build react-native-widget-extension
         run: bun run build
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "18.x"
+          registry-url: "https://registry.npmjs.org"
       - run: npm publish
         env:
           NPM_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
