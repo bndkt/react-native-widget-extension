@@ -26,7 +26,12 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [["../app.plugin.js", { "frequentUpdates": true }]],
+    "plugins": [
+      [
+        "../app.plugin.js",
+        { "frequentUpdates": true, "widgetsFolder": "SampleWidgetExtension" }
+      ]
+    ],
     "extra": {
       "eas": {
         "projectId": "0c1b21bc-7a01-4cc7-bd3b-25ea351f95dc"
