@@ -31,10 +31,10 @@ public class ReactNativeWidgetExtensionModule: Module {
                 let attributes = SportsLiveActivityAttributes(timer: Date.now...future, imageLeft: "Knights", teamNameLeft: "Knights", imageRight: "Pirates", teamNameRight: "Pirates", gameName: "Western Conference Round 1")
                 let contentState = SportsLiveActivityAttributes.ContentState(quarter: quarter, scoreLeft: scoreLeft, scoreRight: scoreRight, bottomText: bottomText)
                 
-                let activityContent = ActivityContent(state: initialContentState, staleDate: Calendar.current.date(byAdding: .minute, value: 30, to: Date())!)
+                let activityContent = ActivityContent(state: contentState, staleDate: Calendar.current.date(byAdding: .minute, value: 30, to: Date())!)
                 
                 do {
-                    let deliveryActivity = try Activity.request(attributes: activityAttributes, content: activityContent)
+                    let activity = try Activity.request(attributes: attributes, content: activityContent)
                     logger.info("Requested a Live Activity \(String(describing: deliveryActivity.id)).")
                 } catch (let error) {
                     logger.info("Error requesting Live Activity \(error.localizedDescription).")

@@ -1,11 +1,27 @@
-import { StyleSheet, Text, View } from "react-native";
-
+import { Button, StyleSheet, View } from "react-native";
 import * as ReactNativeWidgetExtension from "react-native-widget-extension";
 
 export default function App() {
+  const quarter = 1;
+  const scoreLeft = 2;
+  const scoreRight = 3;
+  const bottomText = "Hello, world!";
+
   return (
     <View style={styles.container}>
-      <Text>{ReactNativeWidgetExtension.areActivitiesEnabled()}</Text>
+      {ReactNativeWidgetExtension.areActivitiesEnabled() ? (
+        <Button
+          onPress={() =>
+            ReactNativeWidgetExtension.startActivity(
+              quarter,
+              scoreLeft,
+              scoreRight,
+              bottomText
+            )
+          }
+          title="Start Live Activity"
+        />
+      ) : null}
     </View>
   );
 }
