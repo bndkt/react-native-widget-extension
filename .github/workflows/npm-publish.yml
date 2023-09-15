@@ -17,7 +17,7 @@ jobs:
         uses: oven-sh/setup-bun@v1
       - name: Install dependencies
         run: bun install
-      - name: Build react-native-widget-extension
+      - name: Build package
         run: bun run build
       - uses: actions/setup-node@v3
         with:
