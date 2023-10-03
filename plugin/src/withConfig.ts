@@ -1,4 +1,4 @@
-import { ConfigPlugin } from "@expo/config-plugins";
+import { ConfigPlugin } from '@expo/config-plugins';
 
 export const withConfig: ConfigPlugin<{
   bundleIdentifier: string;
@@ -25,12 +25,12 @@ export const withConfig: ConfigPlugin<{
             ios: {
               ...config.extra?.eas?.build?.experimental?.ios,
               appExtensions: [
-                ...(config.extra?.eas?.build?.experimental?.ios
-                  ?.appExtensions ?? []),
                 {
                   targetName,
                   bundleIdentifier,
                 },
+                ...(config.extra?.eas?.build?.experimental?.ios
+                  ?.appExtensions ?? []),
               ],
             },
           },
