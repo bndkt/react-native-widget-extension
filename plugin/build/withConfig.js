@@ -20,12 +20,12 @@ const withConfig = (config, { bundleIdentifier, targetName }) => {
                         ios: {
                             ...config.extra?.eas?.build?.experimental?.ios,
                             appExtensions: [
-                                ...(config.extra?.eas?.build?.experimental?.ios
-                                    ?.appExtensions ?? []),
                                 {
                                     targetName,
                                     bundleIdentifier,
                                 },
+                                ...(config.extra?.eas?.build?.experimental?.ios
+                                    ?.appExtensions ?? []),
                             ],
                         },
                     },
