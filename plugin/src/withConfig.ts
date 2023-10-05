@@ -3,7 +3,11 @@ import { ConfigPlugin } from '@expo/config-plugins';
 export const withConfig: ConfigPlugin<{
   bundleIdentifier: string;
   targetName: string;
-}> = (config, { bundleIdentifier, targetName }) => {
+  appGroup: {
+    entitlementName: string;
+    groupName: string;
+  };
+}> = (config, { bundleIdentifier, targetName, appGroup }) => {
   let configIndex: null | number = null;
   config.extra?.eas?.build?.experimental?.ios?.appExtensions?.forEach(
     (ext: any, index: number) => {
@@ -44,7 +48,9 @@ export const withConfig: ConfigPlugin<{
     const appClipConfig =
       config.extra.eas.build.experimental.ios.appExtensions[configIndex];
 
-    appClipConfig.entitlements = {};
+    appClipConfig.entitlements = {
+      [appGroup.entitlementName]: [appGroup.groupName],
+    };
   }
 
   return config;

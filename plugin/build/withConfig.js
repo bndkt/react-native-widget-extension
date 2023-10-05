@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.withConfig = void 0;
-const withConfig = (config, { bundleIdentifier, targetName }) => {
+const withConfig = (config, { bundleIdentifier, targetName, appGroup }) => {
     let configIndex = null;
     config.extra?.eas?.build?.experimental?.ios?.appExtensions?.forEach((ext, index) => {
         if (ext.targetName === targetName) {
@@ -36,7 +36,9 @@ const withConfig = (config, { bundleIdentifier, targetName }) => {
     }
     if (configIndex != null && config.extra) {
         const appClipConfig = config.extra.eas.build.experimental.ios.appExtensions[configIndex];
-        appClipConfig.entitlements = {};
+        appClipConfig.entitlements = {
+            [appGroup.entitlementName]: [appGroup.groupName],
+        };
     }
     return config;
 };

@@ -1,4 +1,4 @@
-import { ConfigPlugin } from "@expo/config-plugins";
+import { ConfigPlugin } from '@expo/config-plugins';
 declare const withLiveActivities: ConfigPlugin<{
     frequentUpdates?: boolean;
     widgetsFolder?: string;
