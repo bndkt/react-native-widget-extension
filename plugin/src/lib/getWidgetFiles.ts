@@ -71,15 +71,15 @@ export function getWidgetFiles(
   });
 
   // Copy Module.swift and Attributes.swift
-  const modulePath = path.join(__dirname, '../../../ios');
-  copyFileSync(
-    path.join(widgetsPath, moduleFileName),
-    path.join(modulePath, 'Module.swift')
-  );
-  copyFileSync(
-    path.join(widgetsPath, attributesFileName),
-    path.join(modulePath, 'Attributes.swift')
-  );
+  // const modulePath = path.join(__dirname, '../../../ios');
+  // copyFileSync(
+  //   path.join(widgetsPath, moduleFileName),
+  //   path.join(modulePath, 'Module.swift')
+  // );
+  // copyFileSync(
+  //   path.join(widgetsPath, attributesFileName),
+  //   path.join(modulePath, 'Attributes.swift')
+  // );
 
   // Copy directories
   [...widgetFiles.assetDirectories, ...widgetFiles.otherDirectories].forEach(
