@@ -1,5 +1,5 @@
-import * as fs from "fs";
-import * as path from "path";
+import * as fs from 'fs';
+import * as path from 'path';
 
 export type WidgetFiles = {
   swiftFiles: string[];
@@ -8,6 +8,7 @@ export type WidgetFiles = {
   assetDirectories: string[];
   intentFiles: string[];
   otherFiles: string[];
+  otherDirectories: string[];
 };
 
 export function getWidgetFiles(
@@ -23,6 +24,7 @@ export function getWidgetFiles(
     assetDirectories: [],
     intentFiles: [],
     otherFiles: [],
+    otherDirectories: [],
   };
 
   if (!fs.existsSync(targetPath)) {
@@ -33,20 +35,23 @@ export function getWidgetFiles(
     const files = fs.readdirSync(widgetsPath);
 
     files.forEach((file) => {
-      const fileExtension = file.split(".").pop();
+      const fileExtension = file.split('.').pop();
+      const isDir = file.split('.').length === 1;
 
-      if (fileExtension === "swift") {
+      if (fileExtension === 'swift') {
         if (file !== moduleFileName) {
           widgetFiles.swiftFiles.push(file);
         }
-      } else if (fileExtension === "entitlements") {
+      } else if (fileExtension === 'entitlements') {
         widgetFiles.entitlementFiles.push(file);
-      } else if (fileExtension === "plist") {
+      } else if (fileExtension === 'plist') {
         widgetFiles.plistFiles.push(file);
-      } else if (fileExtension === "xcassets") {
+      } else if (fileExtension === 'xcassets') {
         widgetFiles.assetDirectories.push(file);
-      } else if (fileExtension === "intentdefinition") {
+      } else if (fileExtension === 'intentdefinition') {
         widgetFiles.intentFiles.push(file);
+      } else if (isDir) {
+        widgetFiles.otherDirectories.push(file);
       } else {
         widgetFiles.otherFiles.push(file);
       }
@@ -66,21 +71,23 @@ export function getWidgetFiles(
   });
 
   // Copy Module.swift and Attributes.swift
-  const modulePath = path.join(__dirname, "../../../ios");
+  const modulePath = path.join(__dirname, '../../../ios');
   copyFileSync(
     path.join(widgetsPath, moduleFileName),
-    path.join(modulePath, "Module.swift")
+    path.join(modulePath, 'Module.swift')
   );
   copyFileSync(
     path.join(widgetsPath, attributesFileName),
-    path.join(modulePath, "Attributes.swift")
+    path.join(modulePath, 'Attributes.swift')
   );
 
   // Copy directories
-  widgetFiles.assetDirectories.forEach((directory) => {
-    const imagesXcassetsSource = path.join(widgetsPath, directory);
-    copyFolderRecursiveSync(imagesXcassetsSource, targetPath);
-  });
+  [...widgetFiles.assetDirectories, ...widgetFiles.otherDirectories].forEach(
+    (directory) => {
+      const dirSource = path.join(widgetsPath, directory);
+      copyFolderRecursiveSync(dirSource, targetPath);
+    }
+  );
 
   return widgetFiles;
 }
