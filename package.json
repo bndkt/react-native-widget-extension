@@ -13,9 +13,9 @@
     "app.plugin.js"
   ],
   "scripts": {
-    "ncu": "bun x npm-check-updates -p bun",
-    "build": "bun x tsc --build ./ ./plugin",
-    "dev": "bun x tsc --build ./ ./plugin --watch"
+    "ncu": "npx npm-check-updates -p bun",
+    "build": "npx tsc --build ./ ./plugin",
+    "dev": "npx tsc --build ./ ./plugin --watch"
   },
   "keywords": [
     "react-native",
