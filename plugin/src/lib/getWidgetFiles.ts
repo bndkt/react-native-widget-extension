@@ -139,10 +139,12 @@ function copyAndFlattenFolderSync(source: string, target: string) {
     files.forEach((file) => {
       const currentPath = path.join(source, file);
       if (fs.lstatSync(currentPath).isDirectory()) {
-        copyFolderRecursiveSync(currentPath, target);
+        copyAndFlattenFolderSync(currentPath, target);
       } else {
         copyFileSync(currentPath, target);
       }
     });
+  } else {
+    copyFileSync(source, target);
   }
 }
