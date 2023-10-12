@@ -1,4 +1,6 @@
 export type WidgetFiles = {
+    moduleFile: string;
+    attributesFile: string;
     swiftFiles: string[];
     entitlementFiles: string[];
     plistFiles: string[];

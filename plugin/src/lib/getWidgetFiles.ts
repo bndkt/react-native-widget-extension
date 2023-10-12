@@ -2,6 +2,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 export type WidgetFiles = {
+  moduleFile: string;
+  attributesFile: string;
   swiftFiles: string[];
   entitlementFiles: string[];
   plistFiles: string[];
@@ -18,6 +20,8 @@ export function getWidgetFiles(
   attributesFileName: string
 ) {
   const widgetFiles: WidgetFiles = {
+    moduleFile: '',
+    attributesFile: '',
     swiftFiles: [],
     entitlementFiles: [],
     plistFiles: [],
@@ -38,10 +42,12 @@ export function getWidgetFiles(
       const fileExtension = file.split('.').pop();
       const isDir = file.split('.').length === 1;
 
-      if (fileExtension === 'swift') {
-        if (file !== moduleFileName) {
-          widgetFiles.swiftFiles.push(file);
-        }
+      if (file === moduleFileName) {
+        widgetFiles.moduleFile = file;
+      } else if (file === attributesFileName) {
+        widgetFiles.attributesFile = file;
+      } else if (fileExtension === 'swift') {
+        widgetFiles.swiftFiles.push(file);
       } else if (fileExtension === 'entitlements') {
         widgetFiles.entitlementFiles.push(file);
       } else if (fileExtension === 'plist') {
@@ -71,23 +77,29 @@ export function getWidgetFiles(
   });
 
   // Copy Module.swift and Attributes.swift
-  // const modulePath = path.join(__dirname, '../../../ios');
-  // copyFileSync(
-  //   path.join(widgetsPath, moduleFileName),
-  //   path.join(modulePath, 'Module.swift')
-  // );
-  // copyFileSync(
-  //   path.join(widgetsPath, attributesFileName),
-  //   path.join(modulePath, 'Attributes.swift')
-  // );
+  const modulePath = path.join(__dirname, '../../../ios');
+  if (widgetFiles.moduleFile) {
+    copyFileSync(
+      path.join(widgetsPath, moduleFileName),
+      path.join(modulePath, 'Module.swift')
+    );
+  }
+  if (widgetFiles.attributesFile) {
+    copyFileSync(
+      path.join(widgetsPath, attributesFileName),
+      path.join(modulePath, 'Attributes.swift')
+    );
+  }
 
   // Copy directories
-  [...widgetFiles.assetDirectories, ...widgetFiles.otherDirectories].forEach(
-    (directory) => {
-      const dirSource = path.join(widgetsPath, directory);
-      copyFolderRecursiveSync(dirSource, targetPath);
-    }
-  );
+  widgetFiles.assetDirectories.forEach((directory) => {
+    const dirSource = path.join(widgetsPath, directory);
+    copyFolderRecursiveSync(dirSource, targetPath);
+  });
+  widgetFiles.otherDirectories.forEach((directory) => {
+    const dirSource = path.join(widgetsPath, directory);
+    copyAndFlattenFolderSync(dirSource, targetPath);
+  });
 
   return widgetFiles;
 }
@@ -116,6 +128,20 @@ function copyFolderRecursiveSync(source: string, target: string) {
         copyFolderRecursiveSync(currentPath, targetPath);
       } else {
         copyFileSync(currentPath, targetPath);
+      }
+    });
+  }
+}
+
+function copyAndFlattenFolderSync(source: string, target: string) {
+  if (fs.lstatSync(source).isDirectory()) {
+    const files = fs.readdirSync(source);
+    files.forEach((file) => {
+      const currentPath = path.join(source, file);
+      if (fs.lstatSync(currentPath).isDirectory()) {
+        copyFolderRecursiveSync(currentPath, target);
+      } else {
+        copyFileSync(currentPath, target);
       }
     });
   }
