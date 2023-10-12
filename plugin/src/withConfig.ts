@@ -32,6 +32,9 @@ export const withConfig: ConfigPlugin<{
                 {
                   targetName,
                   bundleIdentifier,
+                  entitlements: {
+                    [appGroup.entitlementName]: [appGroup.groupName],
+                  },
                 },
                 ...(config.extra?.eas?.build?.experimental?.ios
                   ?.appExtensions ?? []),
