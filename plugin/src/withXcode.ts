@@ -1,14 +1,15 @@
-import { ConfigPlugin, withXcodeProject } from "@expo/config-plugins";
-import * as path from "path";
+import { ConfigPlugin, withXcodeProject } from '@expo/config-plugins';
+import * as path from 'path';
 
-import { addXCConfigurationList } from "./xcode/addXCConfigurationList";
-import { addProductFile } from "./xcode/addProductFile";
-import { addToPbxNativeTargetSection } from "./xcode/addToPbxNativeTargetSection";
-import { addToPbxProjectSection } from "./xcode/addToPbxProjectSection";
-import { addTargetDependency } from "./xcode/addTargetDependency";
-import { addPbxGroup } from "./xcode/addPbxGroup";
-import { addBuildPhases } from "./xcode/addBuildPhases";
-import { getWidgetFiles } from "./lib/getWidgetFiles";
+import { addXCConfigurationList } from './xcode/addXCConfigurationList';
+import { addProductFile } from './xcode/addProductFile';
+import { addToPbxNativeTargetSection } from './xcode/addToPbxNativeTargetSection';
+import { addToPbxProjectSection } from './xcode/addToPbxProjectSection';
+import { addTargetDependency } from './xcode/addTargetDependency';
+import { addPbxGroup } from './xcode/addPbxGroup';
+import { addBuildPhases } from './xcode/addBuildPhases';
+import { getWidgetFiles } from './lib/getWidgetFiles';
+import { copyFileSync } from 'fs';
 
 export const withXcode: ConfigPlugin<{
   targetName: string;
@@ -33,7 +34,7 @@ export const withXcode: ConfigPlugin<{
     const widgetsPath = path.join(config.modRequest.projectRoot, widgetsFolder);
 
     const targetUuid = xcodeProject.generateUuid();
-    const groupName = "Embed Foundation Extensions";
+    const groupName = 'Embed Foundation Extensions';
     const { platformProjectRoot } = config.modRequest;
     const marketingVersion = config.version;
 
@@ -46,9 +47,15 @@ export const withXcode: ConfigPlugin<{
       attributesFileName
     );
 
+    const entitlementsFileName = `${targetName}.entitlements`;
+    copyFileSync(
+      `${widgetsPath}/${entitlementsFileName}`,
+      `${platformProjectRoot}/${entitlementsFileName}`
+    );
+
     const xCConfigurationList = addXCConfigurationList(xcodeProject, {
       targetName,
-      currentProjectVersion: config.ios!.buildNumber || "1",
+      currentProjectVersion: config.ios!.buildNumber || '1',
       bundleIdentifier,
       deploymentTarget,
       marketingVersion,
