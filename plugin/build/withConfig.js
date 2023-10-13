@@ -40,7 +40,15 @@ const withConfig = (config, { bundleIdentifier, targetName, appGroup }) => {
     if (configIndex != null && config.extra) {
         const appClipConfig = config.extra.eas.build.experimental.ios.appExtensions[configIndex];
         appClipConfig.entitlements = {
+            ...appClipConfig.entitlements,
             [appGroup.entitlementName]: [appGroup.groupName],
+        };
+        config.ios = {
+            ...config.ios,
+            entitlements: {
+                ...config.ios?.entitlements,
+                [appGroup.entitlementName]: [appGroup.groupName],
+            },
         };
     }
     return config;
