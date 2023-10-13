@@ -34,7 +34,6 @@ const addTargetDependency_1 = require("./xcode/addTargetDependency");
 const addPbxGroup_1 = require("./xcode/addPbxGroup");
 const addBuildPhases_1 = require("./xcode/addBuildPhases");
 const getWidgetFiles_1 = require("./lib/getWidgetFiles");
-const fs_1 = require("fs");
 const withXcode = (config, { targetName, bundleIdentifier, deploymentTarget, widgetsFolder, moduleFileName, attributesFileName, }) => {
     return (0, config_plugins_1.withXcodeProject)(config, (config) => {
         const xcodeProject = config.modResults;
@@ -45,8 +44,6 @@ const withXcode = (config, { targetName, bundleIdentifier, deploymentTarget, wid
         const marketingVersion = config.version;
         const targetPath = path.join(platformProjectRoot, targetName);
         const widgetFiles = (0, getWidgetFiles_1.getWidgetFiles)(widgetsPath, targetPath, moduleFileName, attributesFileName);
-        const entitlementsFileName = `${targetName}.entitlements`;
-        (0, fs_1.copyFileSync)(`${widgetsPath}/${entitlementsFileName}`, `${platformProjectRoot}/${entitlementsFileName}`);
         const xCConfigurationList = (0, addXCConfigurationList_1.addXCConfigurationList)(xcodeProject, {
             targetName,
             currentProjectVersion: config.ios.buildNumber || '1',

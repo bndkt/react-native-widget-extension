@@ -47,12 +47,6 @@ export const withXcode: ConfigPlugin<{
       attributesFileName
     );
 
-    const entitlementsFileName = `${targetName}.entitlements`;
-    copyFileSync(
-      `${widgetsPath}/${entitlementsFileName}`,
-      `${platformProjectRoot}/${entitlementsFileName}`
-    );
-
     const xCConfigurationList = addXCConfigurationList(xcodeProject, {
       targetName,
       currentProjectVersion: config.ios!.buildNumber || '1',
