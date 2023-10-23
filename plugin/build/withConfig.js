@@ -16,13 +16,10 @@ const withConfig = (config, { bundleIdentifier, targetName, appGroup }) => {
                             ...(config.extra?.eas?.build?.experimental?.ios?.appExtensions ??
                                 []),
                             {
-                                // keep in sync with native changes in NSE
                                 targetName,
                                 bundleIdentifier,
                                 entitlements: {
-                                    'com.apple.security.application-groups': [
-                                        `group.${config?.ios?.bundleIdentifier}.widgets`,
-                                    ],
+                                    [appGroup.entitlementName]: [appGroup.groupName],
                                 },
                             },
                         ],
