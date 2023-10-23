@@ -26,7 +26,7 @@ function addXCConfigurationList(xcodeProject, { targetName, currentProjectVersio
                     SWIFT_EMIT_LOC_STRINGS = YES;
                     SWIFT_OPTIMIZATION_LEVEL = "-Onone"; */
         PRODUCT_NAME: `"$(TARGET_NAME)"`,
-        SWIFT_VERSION: "5.0",
+        SWIFT_VERSION: '5.0',
         TARGETED_DEVICE_FAMILY: `"1,2"`,
         INFOPLIST_FILE: `${targetName}/Info.plist`,
         CURRENT_PROJECT_VERSION: `"${currentProjectVersion}"`,
@@ -37,25 +37,26 @@ function addXCConfigurationList(xcodeProject, { targetName, currentProjectVersio
         INFOPLIST_KEY_NSHumanReadableCopyright: `""`,
         MARKETING_VERSION: `"${marketingVersion}"`,
         SWIFT_OPTIMIZATION_LEVEL: `"-Onone"`,
+        CODE_SIGN_ENTITLEMENTS: `"${targetName}/${targetName}.entitlements"`,
         // DEVELOPMENT_TEAM: `"G76836P2D4"`,
     };
     const buildConfigurationsList = [
         {
-            name: "Debug",
-            isa: "XCBuildConfiguration",
+            name: 'Debug',
+            isa: 'XCBuildConfiguration',
             buildSettings: {
                 ...commonBuildSettings,
             },
         },
         {
-            name: "Release",
-            isa: "XCBuildConfiguration",
+            name: 'Release',
+            isa: 'XCBuildConfiguration',
             buildSettings: {
                 ...commonBuildSettings,
             },
         },
     ];
-    const xCConfigurationList = xcodeProject.addXCConfigurationList(buildConfigurationsList, "Release", `Build configuration list for PBXNativeTarget "${targetName}"`);
+    const xCConfigurationList = xcodeProject.addXCConfigurationList(buildConfigurationsList, 'Release', `Build configuration list for PBXNativeTarget "${targetName}"`);
     return xCConfigurationList;
 }
 exports.addXCConfigurationList = addXCConfigurationList;
