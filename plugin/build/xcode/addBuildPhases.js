@@ -43,6 +43,6 @@ function addBuildPhases(xcodeProject, { targetUuid, groupName, productFile, widg
     // Frameworks build phase
     xcodeProject.addBuildPhase([], 'PBXFrameworksBuildPhase', groupName, targetUuid, folderType, buildPath);
     // Resources build phase
-    xcodeProject.addBuildPhase([...assetDirectories, 'Fonts/*.ttf'], 'PBXResourcesBuildPhase', groupName, targetUuid, folderType, buildPath);
+    xcodeProject.addBuildPhase([...assetDirectories, 'Fonts'], 'PBXResourcesBuildPhase', groupName, targetUuid, folderType, buildPath);
 }
 exports.addBuildPhases = addBuildPhases;
