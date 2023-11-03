@@ -1,5 +1,5 @@
-import { XcodeProject } from "@expo/config-plugins";
-import { WidgetFiles } from "../lib/getWidgetFiles";
+import { XcodeProject } from '@expo/config-plugins';
+import { WidgetFiles } from '../lib/getWidgetFiles';
 export declare function addBuildPhases(xcodeProject: XcodeProject, { targetUuid, groupName, productFile, widgetFiles, }: {
     targetUuid: string;
     groupName: string;

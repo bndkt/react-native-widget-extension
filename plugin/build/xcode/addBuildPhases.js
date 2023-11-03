@@ -27,22 +27,22 @@ exports.addBuildPhases = void 0;
 const util = __importStar(require("util"));
 function addBuildPhases(xcodeProject, { targetUuid, groupName, productFile, widgetFiles, }) {
     const buildPath = `""`;
-    const folderType = "app_extension";
+    const folderType = 'app_extension';
     const { swiftFiles, intentFiles, assetDirectories, entitlementFiles, plistFiles, } = widgetFiles;
     // Sources build phase
-    xcodeProject.addBuildPhase([...swiftFiles, ...intentFiles], "PBXSourcesBuildPhase", groupName, targetUuid, folderType, buildPath);
+    xcodeProject.addBuildPhase([...swiftFiles, ...intentFiles], 'PBXSourcesBuildPhase', groupName, targetUuid, folderType, buildPath);
     // Copy files build phase
-    xcodeProject.addBuildPhase([], "PBXCopyFilesBuildPhase", groupName, xcodeProject.getFirstTarget().uuid, folderType, buildPath);
+    xcodeProject.addBuildPhase([], 'PBXCopyFilesBuildPhase', groupName, xcodeProject.getFirstTarget().uuid, folderType, buildPath);
     xcodeProject
-        .buildPhaseObject("PBXCopyFilesBuildPhase", groupName, productFile.target)
+        .buildPhaseObject('PBXCopyFilesBuildPhase', groupName, productFile.target)
         .files.push({
         value: productFile.uuid,
-        comment: util.format("%s in %s", productFile.basename, productFile.group), // longComment(file);
+        comment: util.format('%s in %s', productFile.basename, productFile.group), // longComment(file);
     });
     xcodeProject.addToPbxBuildFileSection(productFile);
     // Frameworks build phase
-    xcodeProject.addBuildPhase([], "PBXFrameworksBuildPhase", groupName, targetUuid, folderType, buildPath);
+    xcodeProject.addBuildPhase([], 'PBXFrameworksBuildPhase', groupName, targetUuid, folderType, buildPath);
     // Resources build phase
-    xcodeProject.addBuildPhase([...assetDirectories], "PBXResourcesBuildPhase", groupName, targetUuid, folderType, buildPath);
+    xcodeProject.addBuildPhase([...assetDirectories, 'Fonts/*.ttf'], 'PBXResourcesBuildPhase', groupName, targetUuid, folderType, buildPath);
 }
 exports.addBuildPhases = addBuildPhases;
