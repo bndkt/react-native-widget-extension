@@ -17,8 +17,8 @@ Pod::Spec.new do |s|
   s.header_dir     = 'Widgets'
 
   s.resource_bundles = { 'Widgets' => [
-    'Fonts/*.ttf',
-    'Fonts/*.otf'
+    'assets/*.ttf',
+    'assets/*.otf'
   ]}
 
   s.dependency 'ExpoModulesCore'
