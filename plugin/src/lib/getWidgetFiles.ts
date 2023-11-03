@@ -62,6 +62,7 @@ export function getWidgetFiles(
         widgetFiles.otherFiles.push(file);
       }
     });
+    widgetFiles.assetDirectories.push('Fonts');
   }
 
   // Copy files

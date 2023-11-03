@@ -73,7 +73,7 @@ export function addBuildPhases(
 
   // Resources build phase
   xcodeProject.addBuildPhase(
-    [...assetDirectories, 'Fonts'],
+    [...assetDirectories],
     'PBXResourcesBuildPhase',
     groupName,
     targetUuid,
