@@ -74,7 +74,7 @@ function getWidgetFiles(widgetsPath, targetPath, moduleFileName, attributesFileN
                 widgetFiles.otherFiles.push(file);
             }
         });
-        widgetFiles.assetDirectories.push('Fonts');
+        widgetFiles.assetDirectories.push('Quicksand-Bold.ttf');
     }
     // Copy files
     [
