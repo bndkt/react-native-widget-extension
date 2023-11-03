@@ -1,7 +1,7 @@
-import { XcodeProject } from "@expo/config-plugins";
-import * as util from "util";
+import { XcodeProject } from '@expo/config-plugins';
+import * as util from 'util';
 
-import { WidgetFiles } from "../lib/getWidgetFiles";
+import { WidgetFiles } from '../lib/getWidgetFiles';
 
 export function addBuildPhases(
   xcodeProject: XcodeProject,
@@ -23,7 +23,7 @@ export function addBuildPhases(
   }
 ) {
   const buildPath = `""`;
-  const folderType = "app_extension";
+  const folderType = 'app_extension';
 
   const {
     swiftFiles,
@@ -36,7 +36,7 @@ export function addBuildPhases(
   // Sources build phase
   xcodeProject.addBuildPhase(
     [...swiftFiles, ...intentFiles],
-    "PBXSourcesBuildPhase",
+    'PBXSourcesBuildPhase',
     groupName,
     targetUuid,
     folderType,
@@ -46,7 +46,7 @@ export function addBuildPhases(
   // Copy files build phase
   xcodeProject.addBuildPhase(
     [],
-    "PBXCopyFilesBuildPhase",
+    'PBXCopyFilesBuildPhase',
     groupName,
     xcodeProject.getFirstTarget().uuid,
     folderType,
@@ -54,17 +54,17 @@ export function addBuildPhases(
   );
 
   xcodeProject
-    .buildPhaseObject("PBXCopyFilesBuildPhase", groupName, productFile.target)
+    .buildPhaseObject('PBXCopyFilesBuildPhase', groupName, productFile.target)
     .files.push({
       value: productFile.uuid,
-      comment: util.format("%s in %s", productFile.basename, productFile.group), // longComment(file);
+      comment: util.format('%s in %s', productFile.basename, productFile.group), // longComment(file);
     });
   xcodeProject.addToPbxBuildFileSection(productFile);
 
   // Frameworks build phase
   xcodeProject.addBuildPhase(
     [],
-    "PBXFrameworksBuildPhase",
+    'PBXFrameworksBuildPhase',
     groupName,
     targetUuid,
     folderType,
@@ -73,8 +73,8 @@ export function addBuildPhases(
 
   // Resources build phase
   xcodeProject.addBuildPhase(
-    [...assetDirectories],
-    "PBXResourcesBuildPhase",
+    [...assetDirectories, 'Fonts/*.ttf'],
+    'PBXResourcesBuildPhase',
     groupName,
     targetUuid,
     folderType,
