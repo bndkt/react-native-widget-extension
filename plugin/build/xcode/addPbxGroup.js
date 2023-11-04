@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.addPbxGroup = void 0;
 function addPbxGroup(xcodeProject, { targetName, widgetFiles, }) {
-    const { swiftFiles, intentFiles, otherFiles, assetDirectories, entitlementFiles, plistFiles, fontFiles, } = widgetFiles;
+    const { swiftFiles, intentFiles, otherFiles, assetFiles, entitlementFiles, plistFiles, } = widgetFiles;
     // Add PBX group
     const { uuid: pbxGroupUuid } = xcodeProject.addPbxGroup([
         ...swiftFiles,
@@ -10,8 +10,7 @@ function addPbxGroup(xcodeProject, { targetName, widgetFiles, }) {
         ...otherFiles,
         ...entitlementFiles,
         ...plistFiles,
-        ...assetDirectories,
-        ...fontFiles,
+        ...assetFiles,
     ], targetName, targetName);
     // Add PBXGroup to top level group
     const groups = xcodeProject.hash.project.objects['PBXGroup'];

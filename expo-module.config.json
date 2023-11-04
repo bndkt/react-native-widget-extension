@@ -1,8 +1,6 @@
 {
   "platforms": ["ios"],
   "ios": {
-    "modules": ["ReactNativeWidgetExtensionModule"],
-    "podspecPath": "ios/ReactNativeWidgetExtension.podspec",
-    "swiftModuleName": "Widgets"
+    "modules": ["ReactNativeWidgetExtensionModule"]
   }
 }

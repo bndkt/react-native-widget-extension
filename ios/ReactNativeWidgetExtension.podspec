@@ -14,12 +14,6 @@ Pod::Spec.new do |s|
   s.swift_version  = '5.4'
   s.source         = { git: 'https://github.com/bndkt/react-native-widget-extension' }
   s.static_framework = true
-  s.header_dir     = 'Widgets'
-
-  s.resource_bundles = { 'Widgets' => [
-    'assets/*.ttf',
-    'assets/*.otf'
-  ]}
 
   s.dependency 'ExpoModulesCore'
 

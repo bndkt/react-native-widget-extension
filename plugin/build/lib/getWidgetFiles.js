@@ -28,85 +28,65 @@ const fs = __importStar(require("fs"));
 const path = __importStar(require("path"));
 function getWidgetFiles(widgetsPath, targetPath, moduleFileName, attributesFileName) {
     const widgetFiles = {
-        moduleFile: '',
-        attributesFile: '',
         swiftFiles: [],
         entitlementFiles: [],
         plistFiles: [],
-        assetDirectories: [],
+        assetFiles: [],
         intentFiles: [],
         otherFiles: [],
-        otherDirectories: [],
-        fontFiles: [],
     };
+    if (!fs.lstatSync(widgetsPath).isDirectory()) {
+        throw new Error(`Widgets path is not a directory: ${widgetsPath}`);
+    }
     if (!fs.existsSync(targetPath)) {
         fs.mkdirSync(targetPath, { recursive: true });
     }
-    if (fs.lstatSync(widgetsPath).isDirectory()) {
-        const files = fs.readdirSync(widgetsPath);
-        files.forEach((file) => {
-            const fileExtension = file.split('.').pop();
-            const isDir = file.split('.').length === 1;
-            if (file === moduleFileName) {
-                widgetFiles.moduleFile = file;
-            }
-            else if (file === attributesFileName) {
-                widgetFiles.attributesFile = file;
-            }
-            else if (fileExtension === 'swift') {
-                widgetFiles.swiftFiles.push(file);
-            }
-            else if (fileExtension === 'entitlements') {
-                widgetFiles.entitlementFiles.push(file);
-            }
-            else if (fileExtension === 'plist') {
-                widgetFiles.plistFiles.push(file);
-            }
-            else if (fileExtension === 'xcassets') {
-                widgetFiles.assetDirectories.push(file);
-            }
-            else if (fileExtension === 'ttf' || fileExtension === 'otf') {
-                widgetFiles.fontFiles.push(file);
-            }
-            else if (fileExtension === 'intentdefinition') {
-                widgetFiles.intentFiles.push(file);
-            }
-            else if (isDir) {
-                widgetFiles.otherDirectories.push(file);
-            }
-            else {
-                widgetFiles.otherFiles.push(file);
-            }
-        });
-    }
-    // Copy files
-    [
-        ...widgetFiles.swiftFiles,
-        ...widgetFiles.entitlementFiles,
-        ...widgetFiles.plistFiles,
-        ...widgetFiles.intentFiles,
-        ...widgetFiles.otherFiles,
-        ...widgetFiles.fontFiles,
-    ].forEach((file) => {
-        const source = path.join(widgetsPath, file);
-        copyFileSync(source, targetPath);
+    const sourceFiles = fs.readdirSync(widgetsPath);
+    sourceFiles.forEach((file) => {
+        const fileExtension = file.split('.').pop();
+        const isDir = file.split('.').length === 1;
+        const sourcePath = path.join(widgetsPath, file);
+        const modulePath = path.join(__dirname, '../../../ios');
+        if (fileExtension === 'xcassets') {
+            copyFolderRecursiveSync(sourcePath, targetPath);
+        }
+        else if (isDir) {
+            copyAndFlattenFolderSync(sourcePath, targetPath);
+        }
+        else if (file === moduleFileName) {
+            copyFileSync(sourcePath, path.join(modulePath, 'Module.swift'));
+        }
+        else if (file === attributesFileName) {
+            copyFileSync(sourcePath, path.join(modulePath, 'Attributes.swift'));
+        }
+        else {
+            copyFileSync(sourcePath, targetPath);
+        }
     });
-    // Copy Module.swift and Attributes.swift
-    const modulePath = path.join(__dirname, '../../../ios');
-    if (widgetFiles.moduleFile) {
-        copyFileSync(path.join(widgetsPath, moduleFileName), path.join(modulePath, 'Module.swift'));
-    }
-    if (widgetFiles.attributesFile) {
-        copyFileSync(path.join(widgetsPath, attributesFileName), path.join(modulePath, 'Attributes.swift'));
-    }
-    // Copy directories
-    widgetFiles.assetDirectories.forEach((directory) => {
-        const dirSource = path.join(widgetsPath, directory);
-        copyFolderRecursiveSync(dirSource, targetPath);
-    });
-    widgetFiles.otherDirectories.forEach((directory) => {
-        const dirSource = path.join(widgetsPath, directory);
-        copyAndFlattenFolderSync(dirSource, targetPath);
+    const targetFiles = fs.readdirSync(targetPath);
+    targetFiles.forEach((file) => {
+        const fileExtension = file.split('.').pop();
+        if (fileExtension === 'swift') {
+            widgetFiles.swiftFiles.push(file);
+        }
+        else if (fileExtension === 'entitlements') {
+            widgetFiles.entitlementFiles.push(file);
+        }
+        else if (fileExtension === 'plist') {
+            widgetFiles.plistFiles.push(file);
+        }
+        else if (fileExtension === 'xcassets') {
+            widgetFiles.assetFiles.push(file);
+        }
+        else if (fileExtension === 'ttf' || fileExtension === 'otf') {
+            widgetFiles.assetFiles.push(file);
+        }
+        else if (fileExtension === 'intentdefinition') {
+            widgetFiles.intentFiles.push(file);
+        }
+        else {
+            widgetFiles.otherFiles.push(file);
+        }
     });
     return widgetFiles;
 }

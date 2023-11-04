@@ -16,10 +16,9 @@ export function addPbxGroup(
     swiftFiles,
     intentFiles,
     otherFiles,
-    assetDirectories,
+    assetFiles,
     entitlementFiles,
     plistFiles,
-    fontFiles,
   } = widgetFiles;
 
   // Add PBX group
@@ -30,8 +29,7 @@ export function addPbxGroup(
       ...otherFiles,
       ...entitlementFiles,
       ...plistFiles,
-      ...assetDirectories,
-      ...fontFiles,
+      ...assetFiles,
     ],
     targetName,
     targetName
