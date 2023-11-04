@@ -31,6 +31,7 @@ export function addBuildPhases(
     assetDirectories,
     entitlementFiles,
     plistFiles,
+    fontFiles,
   } = widgetFiles;
 
   // Sources build phase
@@ -73,7 +74,7 @@ export function addBuildPhases(
 
   // Resources build phase
   xcodeProject.addBuildPhase(
-    [...assetDirectories],
+    [...assetDirectories, ...fontFiles],
     'PBXResourcesBuildPhase',
     groupName,
     targetUuid,

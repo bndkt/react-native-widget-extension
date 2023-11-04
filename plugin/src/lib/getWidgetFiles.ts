@@ -11,6 +11,7 @@ export type WidgetFiles = {
   intentFiles: string[];
   otherFiles: string[];
   otherDirectories: string[];
+  fontFiles: string[];
 };
 
 export function getWidgetFiles(
@@ -29,6 +30,7 @@ export function getWidgetFiles(
     intentFiles: [],
     otherFiles: [],
     otherDirectories: [],
+    fontFiles: [],
   };
 
   if (!fs.existsSync(targetPath)) {
@@ -54,6 +56,8 @@ export function getWidgetFiles(
         widgetFiles.plistFiles.push(file);
       } else if (fileExtension === 'xcassets') {
         widgetFiles.assetDirectories.push(file);
+      } else if (fileExtension === 'ttf' || fileExtension === 'otf') {
+        widgetFiles.fontFiles.push(file);
       } else if (fileExtension === 'intentdefinition') {
         widgetFiles.intentFiles.push(file);
       } else if (isDir) {
@@ -62,7 +66,6 @@ export function getWidgetFiles(
         widgetFiles.otherFiles.push(file);
       }
     });
-    widgetFiles.assetDirectories.push('Quicksand-Bold.ttf');
   }
 
   // Copy files
@@ -72,6 +75,7 @@ export function getWidgetFiles(
     ...widgetFiles.plistFiles,
     ...widgetFiles.intentFiles,
     ...widgetFiles.otherFiles,
+    ...widgetFiles.fontFiles,
   ].forEach((file) => {
     const source = path.join(widgetsPath, file);
     copyFileSync(source, targetPath);

@@ -1,6 +1,6 @@
-import { XcodeProject } from "@expo/config-plugins";
+import { XcodeProject } from '@expo/config-plugins';
 
-import { WidgetFiles } from "../lib/getWidgetFiles";
+import { WidgetFiles } from '../lib/getWidgetFiles';
 
 export function addPbxGroup(
   xcodeProject: XcodeProject,
@@ -19,6 +19,7 @@ export function addPbxGroup(
     assetDirectories,
     entitlementFiles,
     plistFiles,
+    fontFiles,
   } = widgetFiles;
 
   // Add PBX group
@@ -30,13 +31,14 @@ export function addPbxGroup(
       ...entitlementFiles,
       ...plistFiles,
       ...assetDirectories,
+      ...fontFiles,
     ],
     targetName,
     targetName
   );
 
   // Add PBXGroup to top level group
-  const groups = xcodeProject.hash.project.objects["PBXGroup"];
+  const groups = xcodeProject.hash.project.objects['PBXGroup'];
   if (pbxGroupUuid) {
     Object.keys(groups).forEach(function (key) {
       if (groups[key].name === undefined && groups[key].path === undefined) {
