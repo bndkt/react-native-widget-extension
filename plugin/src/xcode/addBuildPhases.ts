@@ -31,11 +31,12 @@ export function addBuildPhases(
     assetDirectories,
     entitlementFiles,
     plistFiles,
+    otherFiles
   } = widgetFiles;
 
   // Sources build phase
   xcodeProject.addBuildPhase(
-    [...swiftFiles, ...intentFiles],
+    [...swiftFiles, ...intentFiles, ...otherFiles],
     "PBXSourcesBuildPhase",
     groupName,
     targetUuid,
