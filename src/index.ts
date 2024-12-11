@@ -8,47 +8,10 @@ export function startActivity(...args: any): void {
   return ReactNativeWidgetExtension.startActivity(...args);
 }
 
-export function startPizzaActivity({
-  numberOfPizzas,
-  totalAmount,
-  orderNumber,
-  driverName,
-  minutes,
-  seconds,
-}: {
-  numberOfPizzas: number;
-  totalAmount: string;
-  orderNumber: string;
-  driverName: string;
-  minutes: number;
-  seconds: number;
-}): void {
-  return ReactNativeWidgetExtension.startActivity(
-    numberOfPizzas,
-    totalAmount,
-    orderNumber,
-    driverName,
-    minutes,
-    seconds
-  );
+export function updateActivity(...args: any): void {
+  return ReactNativeWidgetExtension.updateActivity(...args);
 }
 
-export function updateActivity({
-  driverName,
-  minutes,
-  seconds,
-}: {
-  driverName: string;
-  minutes: number;
-  seconds: number;
-}): void {
-  return ReactNativeWidgetExtension.updateActivity(
-    driverName,
-    minutes,
-    seconds
-  );
-}
-
-export function endActivity({ driverName }: { driverName: string }): void {
-  return ReactNativeWidgetExtension.endActivity(driverName);
+export function endActivity(...args: any): void {
+  return ReactNativeWidgetExtension.endActivity(...args);
 }

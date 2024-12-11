@@ -6,14 +6,23 @@ export type WidgetFiles = {
   entitlementFiles: string[];
   plistFiles: string[];
   assetDirectories: string[];
+  intentFiles: string[];
+  otherFiles: string[];
 };
 
-export function getWidgetFiles(widgetsPath: string, targetPath: string) {
+export function getWidgetFiles(
+  widgetsPath: string,
+  targetPath: string,
+  moduleFileName: string,
+  attributesFileName: string
+) {
   const widgetFiles: WidgetFiles = {
     swiftFiles: [],
     entitlementFiles: [],
     plistFiles: [],
     assetDirectories: [],
+    intentFiles: [],
+    otherFiles: [],
   };
 
   if (!fs.existsSync(targetPath)) {
@@ -27,7 +36,7 @@ export function getWidgetFiles(widgetsPath: string, targetPath: string) {
       const fileExtension = file.split(".").pop();
 
       if (fileExtension === "swift") {
-        if (file !== "Module.swift") {
+        if (file !== moduleFileName) {
           widgetFiles.swiftFiles.push(file);
         }
       } else if (fileExtension === "entitlements") {
@@ -36,6 +45,10 @@ export function getWidgetFiles(widgetsPath: string, targetPath: string) {
         widgetFiles.plistFiles.push(file);
       } else if (fileExtension === "xcassets") {
         widgetFiles.assetDirectories.push(file);
+      } else if (fileExtension === "intentdefinition") {
+        widgetFiles.intentFiles.push(file);
+      } else {
+        widgetFiles.otherFiles.push(file);
       }
     });
   }
@@ -45,6 +58,8 @@ export function getWidgetFiles(widgetsPath: string, targetPath: string) {
     ...widgetFiles.swiftFiles,
     ...widgetFiles.entitlementFiles,
     ...widgetFiles.plistFiles,
+    ...widgetFiles.intentFiles,
+    ...widgetFiles.otherFiles,
   ].forEach((file) => {
     const source = path.join(widgetsPath, file);
     copyFileSync(source, targetPath);
@@ -53,15 +68,11 @@ export function getWidgetFiles(widgetsPath: string, targetPath: string) {
   // Copy Module.swift and Attributes.swift
   const modulePath = path.join(__dirname, "../../../ios");
   copyFileSync(
-    path.join(widgetsPath, "Module.swift"),
-    path.join(modulePath, "Module.swift")
-  );
-  console.log(
-    path.join(widgetsPath, "Module.swift"),
+    path.join(widgetsPath, moduleFileName),
     path.join(modulePath, "Module.swift")
   );
   copyFileSync(
-    path.join(widgetsPath, "Attributes.swift"),
+    path.join(widgetsPath, attributesFileName),
     path.join(modulePath, "Attributes.swift")
   );
 

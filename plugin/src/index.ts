@@ -1,4 +1,4 @@
-import { ConfigPlugin, IOSConfig, withPlugins } from "expo/config-plugins";
+import { ConfigPlugin, IOSConfig, withPlugins } from "@expo/config-plugins";
 import { withConfig } from "./withConfig";
 import { withPodfile } from "./withPodfile";
 
@@ -8,11 +8,25 @@ import { withWidgetExtensionEntitlements } from "./withWidgetExtensionEntitlemen
 const withWidgetsAndLiveActivities: ConfigPlugin<{
   frequentUpdates?: boolean;
   widgetsFolder?: string;
+  deploymentTarget?: string;
+  moduleFileName?: string;
+  attributesFileName?: string;
   groupIdentifier?: string;
-}> = (config, { frequentUpdates = false, widgetsFolder = "widgets", groupIdentifier }) => {
-  const targetName = `${IOSConfig.XcodeUtils.sanitizedName(config.name)}Widgets`;
+}> = (
+  config,
+  {
+    frequentUpdates = false,
+    widgetsFolder = "widgets",
+    deploymentTarget = "16.2",
+    moduleFileName = "Module.swift",
+    attributesFileName = "Attributes.swift",
+    groupIdentifier,
+  }
+) => {
+  const targetName = `${IOSConfig.XcodeUtils.sanitizedName(
+    config.name
+  )}Widgets`;
   const bundleIdentifier = `${config.ios?.bundleIdentifier}.${targetName}`;
-  const deploymentTarget = "16.2";
 
   config.ios = {
     ...config.ios,
@@ -31,6 +45,8 @@ const withWidgetsAndLiveActivities: ConfigPlugin<{
         bundleIdentifier,
         deploymentTarget,
         widgetsFolder,
+        moduleFileName,
+        attributesFileName,
       },
     ],
     [withWidgetExtensionEntitlements, { targetName, groupIdentifier }],

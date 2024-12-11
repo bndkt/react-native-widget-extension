@@ -1,4 +1,4 @@
-import { ConfigPlugin } from "expo/config-plugins";
+import { ConfigPlugin } from "@expo/config-plugins";
 
 import { addApplicationGroupsEntitlement, getWidgetExtensionEntitlements } from "./lib/getWidgetExtensionEntitlements";
 
