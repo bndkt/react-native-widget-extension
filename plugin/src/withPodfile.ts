@@ -35,7 +35,8 @@ export const withPodfile: ConfigPlugin<{ targetName: string }> = (
         src: podFileContent,
         newSrc: `installer.pods_project.targets.each do |target|
           target.build_configurations.each do |config|
-            config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = 'No'
+            # Sentry has build errors unless configured as 'YES' for the Sentry target: https://github.com/bndkt/react-native-widget-extension/issues/24
+            config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = target.name == 'Sentry' ? 'YES' : 'No'
           end
         end`,
         anchor:
