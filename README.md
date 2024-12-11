@@ -2,7 +2,7 @@
 
 Expo config plugin to add widgets and live activities to a React Native app
 
-The widgets still need to be written in Swift (I think there's no way around that). But you can simply add a folder with Swift files to a React Native project (see folder \_widgets in this repository for examples) and then add the plugin via:
+The widgets still need to be written in Swift (I think there's no way around that). But you can simply add a folder with Swift files to a React Native project and then add the plugin via:
 
 ```sh
 npx expo install react-native-widget-extension
@@ -16,7 +16,7 @@ And add the following config to app.json (where widgetsFolder is the path to the
     "plugins": [
         [
             "react-native-widget-extension",
-            { "frequentUpdates": true, "widgetsFolder": "_widgets/PizzaDelivery" },
+            { "frequentUpdates": true, "widgetsFolder": "SampleWidgetExtension" },
         ],
     ]
 }
@@ -47,7 +47,7 @@ startActivity(3, "4343", "$32.23", driverName, 47, 43);
 
 ## Example
 
-For a minimal example app, see the folder **example**. Example code for widgets can be found in the \*\*\_widgets\_\_ folder.
+For a minimal example app, see the folder **example**. Example code for a widget and live activity can be found in **example/SampleWidgetExtension**. To run the example, you'll need to `bun run build` in the root directory.
 
 Some background on how the **PizzaDelivery** example works:
 
