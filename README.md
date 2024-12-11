@@ -22,10 +22,6 @@ And add the following config to app.json (where widgetsFolder is the path to the
 }
 ```
 
-It is highly recommended to specify the `groupIdentifier` since it assigns both the main app target and the widget target to the same app group
-which enables you to more easily communicate between the widget and the main app. Do note that the `groupIdentifier` **must** start with `group.`
-as it is a requirement imposed by Apple.
-
 Then in React land, you can use the following:
 
 ```typescript
@@ -44,6 +40,7 @@ startActivity(3, "4343", "$32.23", driverName, 47, 43);
 - frequentUpdates (boolean, default: false): Depending on this param, NSSupportsLiveActivitiesFrequentUpdates will be set
 - widgetsFolder (string, default: "widgets"): Path from the project root to the folder containing the Swift widget files
 - deploymentTarget (string, default: "16.2"): The minimum deployment target for the app
+- groupIdentifier (string): The app group identifier for the widget target. Must start with `group.`
 <!--
 - moduleFileName (string, default: "Module.swift"): File within the widget folder that defines the native module
 - attributesFileName (string): File within the widget folder that defined the widget attributes
