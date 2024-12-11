@@ -1,6 +1,6 @@
 {
   "name": "react-native-widget-extension",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "Expo config plugin to add widgets and live activities to a React Native app",
   "main": "build/index.js",
   "types": "build/index.d.ts",
