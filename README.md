@@ -8,7 +8,7 @@ The widgets still need to be written in Swift (I think there's no way around tha
 npx expo install react-native-widget-extension
 ```
 
-And add the following config to app.json (where widgetsFolder is the path to the folder with the Swift files):
+And add the following config to app.json (where `widgetsFolder` is the path to the folder with the Swift files):
 
 ```json
 "expo": {
@@ -37,9 +37,9 @@ startActivity(3, "4343", "$32.23", driverName, 47, 43);
 
 ## Plugin configuration options
 
-- frequentUpdates (boolean, default: false): Depending on this param, NSSupportsLiveActivitiesFrequentUpdates will be set
-- widgetsFolder (string, default: "widgets"): Path from the project root to the folder containing the Swift widget files
-- deploymentTarget (string, default: "16.2"): The minimum deployment target for the app
+- `frequentUpdates` (boolean, default: false): Depending on this param, NSSupportsLiveActivitiesFrequentUpdates will be set
+- `widgetsFolder` (string, default: "widgets"): Path from the project root to the folder containing the Swift widget files
+- `deploymentTarget` (string, default: "16.2"): The minimum deployment target for the app
 <!--
 - moduleFileName (string, default: "Module.swift"): File within the widget folder that defines the native module
 - attributesFileName (string): File within the widget folder that defined the widget attributes
