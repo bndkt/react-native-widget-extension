@@ -42,8 +42,8 @@ startActivity(3, "4343", "$32.23", driverName, 47, 43);
 - `deploymentTarget` (string, default: "16.2"): The minimum deployment target for the app
 - `groupIdentifier` (string): The app group identifier which is required for communication with the main app. Must start with `group.`
 <!--
-- moduleFileName (string, default: "Module.swift"): File within the widget folder that defines the native module
-- attributesFileName (string): File within the widget folder that defined the widget attributes
+- `moduleFileName` (string, default: "Module.swift"): File within the widget folder that defines the native module
+- `attributesFileName` (string): File within the widget folder that defined the widget attributes
   -->
 
 ## Example
