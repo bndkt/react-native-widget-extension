@@ -2,13 +2,13 @@
 
 Expo config plugin to add widgets and live activities to a React Native app
 
-The widgets still need to be written in Swift (I think there's no way around that). But you can simply add a folder with Swift files to a React Native project (see folder \_widgets in this repository for examples) and then add the plugin via:
+The widgets still need to be written in Swift (I think there's no way around that). But you can simply add a folder with Swift files to a React Native project and then add the plugin via:
 
 ```sh
 npx expo install react-native-widget-extension
 ```
 
-And add the following config to app.json (where widgetsFolder is the path to the folder with the Swift files):
+And add the following config to app.json (where `widgetsFolder` is the path to the folder with the Swift files):
 
 ```json
 "expo": {
@@ -16,7 +16,7 @@ And add the following config to app.json (where widgetsFolder is the path to the
     "plugins": [
         [
             "react-native-widget-extension",
-            { "frequentUpdates": true, "widgetsFolder": "_widgets/PizzaDelivery" },
+            { "frequentUpdates": true, "widgetsFolder": "SampleWidgetExtension" },
         ],
     ]
 }
@@ -37,10 +37,10 @@ startActivity(3, "4343", "$32.23", driverName, 47, 43);
 
 ## Plugin configuration options
 
-- frequentUpdates (boolean, default: false): Depending on this param, NSSupportsLiveActivitiesFrequentUpdates will be set
-- widgetsFolder (string, default: "widgets"): Path from the project root to the folder containing the Swift widget files
-- deploymentTarget (string, default: "16.2"): The minimum deployment target for the app
-- groupIdentifier (string): The app group identifier which is required for communication with the main app. Must start with `group.`
+- `frequentUpdates` (boolean, default: false): Depending on this param, NSSupportsLiveActivitiesFrequentUpdates will be set
+- `widgetsFolder` (string, default: "widgets"): Path from the project root to the folder containing the Swift widget files
+- `deploymentTarget` (string, default: "16.2"): The minimum deployment target for the app
+- `groupIdentifier` (string): The app group identifier which is required for communication with the main app. Must start with `group.`
 <!--
 - moduleFileName (string, default: "Module.swift"): File within the widget folder that defines the native module
 - attributesFileName (string): File within the widget folder that defined the widget attributes
@@ -48,7 +48,7 @@ startActivity(3, "4343", "$32.23", driverName, 47, 43);
 
 ## Example
 
-For a minimal example app, see the folder **example**. Example code for widgets can be found in the \*\*\_widgets\_\_ folder.
+For a minimal example app, see the folder **example**. Example code for a widget and live activity can be found in **example/SampleWidgetExtension**. To run the example, you'll need to `bun run build` in the root directory.
 
 Some background on how the **PizzaDelivery** example works:
 
