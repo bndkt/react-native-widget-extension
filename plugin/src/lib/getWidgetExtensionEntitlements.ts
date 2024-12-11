@@ -1,4 +1,4 @@
-import { ExportedConfig, InfoPlist } from "expo/config-plugins";
+import { ExportedConfig, InfoPlist } from "@expo/config-plugins";
 
 export function getWidgetExtensionEntitlements(
   iosConfig: ExportedConfig["ios"],

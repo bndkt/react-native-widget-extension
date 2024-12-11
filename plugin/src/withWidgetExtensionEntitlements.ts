@@ -1,5 +1,5 @@
 import plist from "@expo/plist";
-import { ConfigPlugin, withInfoPlist } from "expo/config-plugins";
+import { ConfigPlugin, withInfoPlist } from "@expo/config-plugins";
 import * as fs from "fs";
 import * as path from "path";
 
