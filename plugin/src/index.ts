@@ -3,13 +3,15 @@ import { withConfig } from "./withConfig";
 import { withPodfile } from "./withPodfile";
 
 import { withXcode } from "./withXcode";
+import { withWidgetExtensionEntitlements } from "./withWidgetExtensionEntitlements";
 
-const withLiveActivities: ConfigPlugin<{
+const withWidgetsAndLiveActivities: ConfigPlugin<{
   frequentUpdates?: boolean;
   widgetsFolder?: string;
   deploymentTarget?: string;
   moduleFileName?: string;
   attributesFileName?: string;
+  groupIdentifier?: string;
 }> = (
   config,
   {
@@ -18,6 +20,7 @@ const withLiveActivities: ConfigPlugin<{
     deploymentTarget = "16.2",
     moduleFileName = "Module.swift",
     attributesFileName = "Attributes.swift",
+    groupIdentifier,
   }
 ) => {
   const targetName = `${IOSConfig.XcodeUtils.sanitizedName(
@@ -46,11 +49,12 @@ const withLiveActivities: ConfigPlugin<{
         attributesFileName,
       },
     ],
+    [withWidgetExtensionEntitlements, { targetName, groupIdentifier }],
     [withPodfile, { targetName }],
-    [withConfig, { targetName, bundleIdentifier }],
+    [withConfig, { targetName, bundleIdentifier, groupIdentifier }],
   ]);
 
   return config;
 };
 
-export default withLiveActivities;
+export default withWidgetsAndLiveActivities;

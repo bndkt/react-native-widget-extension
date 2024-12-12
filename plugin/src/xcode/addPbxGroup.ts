@@ -30,6 +30,7 @@ export function addPbxGroup(
       ...entitlementFiles,
       ...plistFiles,
       ...assetDirectories,
+      `${targetName}.entitlements`,
     ],
     targetName,
     targetName

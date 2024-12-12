@@ -52,6 +52,7 @@ export function addXCConfigurationList(
     INFOPLIST_KEY_NSHumanReadableCopyright: `""`,
     MARKETING_VERSION: `"${marketingVersion}"`,
     SWIFT_OPTIMIZATION_LEVEL: `"-Onone"`,
+    CODE_SIGN_ENTITLEMENTS: `"${targetName}/${targetName}.entitlements"`,
     // DEVELOPMENT_TEAM: `"G76836P2D4"`,
   };
 
