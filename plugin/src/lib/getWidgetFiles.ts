@@ -66,14 +66,12 @@ export function getWidgetFiles(
   });
 
   // Copy Module.swift and Attributes.swift
-  const modulePath = path.join(__dirname, "../../../ios");
-  copyFileSync(
-    path.join(widgetsPath, moduleFileName),
-    path.join(modulePath, "Module.swift")
-  );
+  const moduleSourcePath = path.join(widgetsPath, moduleFileName);
+  const moduleTargetPath = path.join(targetPath, "Module.swift");
+  copyFileSync(moduleSourcePath, moduleTargetPath);
   copyFileSync(
     path.join(widgetsPath, attributesFileName),
-    path.join(modulePath, "Attributes.swift")
+    path.join(targetPath, "Attributes.swift")
   );
 
   // Copy directories
