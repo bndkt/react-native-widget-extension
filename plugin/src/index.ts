@@ -12,6 +12,7 @@ const withWidgetsAndLiveActivities: ConfigPlugin<{
   moduleFileName?: string;
   attributesFileName?: string;
   groupIdentifier?: string;
+  keychainAccessGroup?: string;
 }> = (
   config,
   {
@@ -21,6 +22,7 @@ const withWidgetsAndLiveActivities: ConfigPlugin<{
     moduleFileName = "Module.swift",
     attributesFileName = "Attributes.swift",
     groupIdentifier,
+    keychainAccessGroup,
   }
 ) => {
   const targetName = `${IOSConfig.XcodeUtils.sanitizedName(
@@ -49,9 +51,9 @@ const withWidgetsAndLiveActivities: ConfigPlugin<{
         attributesFileName,
       },
     ],
-    [withWidgetExtensionEntitlements, { targetName, groupIdentifier }],
+    [withWidgetExtensionEntitlements, { targetName, groupIdentifier, keychainAccessGroup }],
     [withPodfile, { targetName }],
-    [withConfig, { targetName, bundleIdentifier, groupIdentifier }],
+    [withConfig, { targetName, bundleIdentifier, groupIdentifier, keychainAccessGroup }],
   ]);
 
   return config;

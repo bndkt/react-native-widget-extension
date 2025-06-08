@@ -1,12 +1,13 @@
 import { ConfigPlugin } from "@expo/config-plugins";
 
-import { addApplicationGroupsEntitlement, getWidgetExtensionEntitlements } from "./lib/getWidgetExtensionEntitlements";
+import { addApplicationGroupsEntitlement, getWidgetExtensionEntitlements, addKeychainAccessGroupsEntitlement } from "./lib/getWidgetExtensionEntitlements";
 
 export const withConfig: ConfigPlugin<{
   bundleIdentifier: string;
   targetName: string;
   groupIdentifier?: string;
-}> = (config, { bundleIdentifier, targetName, groupIdentifier }) => {
+  keychainAccessGroup?: string;
+}> = (config, { bundleIdentifier, targetName, groupIdentifier, keychainAccessGroup }) => {
   let configIndex: null | number = null;
   config.extra?.eas?.build?.experimental?.ios?.appExtensions?.forEach((ext: any, index: number) => {
     if (ext.targetName === targetName) {
@@ -46,7 +47,7 @@ export const withConfig: ConfigPlugin<{
     widgetsExtensionConfig.entitlements = {
       ...widgetsExtensionConfig.entitlements,
       ...getWidgetExtensionEntitlements(config.ios, {
-        groupIdentifier,
+        groupIdentifier, keychainAccessGroup,
       }),
     };
 
@@ -54,6 +55,7 @@ export const withConfig: ConfigPlugin<{
       ...config.ios,
       entitlements: {
         ...addApplicationGroupsEntitlement(config.ios?.entitlements ?? {}, groupIdentifier),
+        ...addKeychainAccessGroupsEntitlement(config.ios?.entitlements ?? {}, keychainAccessGroup),
       },
     };
   }
