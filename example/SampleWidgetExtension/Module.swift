@@ -12,7 +12,7 @@ public class ReactNativeWidgetExtensionModule: Module {
         Name("ReactNativeWidgetExtension")
         
         Function("areActivitiesEnabled") { () -> Bool in
-            let logger = Logger()
+            let logger = Logger(logHandlers: [])
             logger.info("areActivitiesEnabled()")
             
             if #available(iOS 16.2, *) {
@@ -23,7 +23,7 @@ public class ReactNativeWidgetExtensionModule: Module {
         }
         
         Function("startActivity") { (quarter: Int, scoreLeft: Int, scoreRight: Int, bottomText: String) -> Void in
-            let logger = Logger()
+            let logger = Logger(logHandlers: [])
             logger.info("startActivity()")
             
             if #available(iOS 16.2, *) {
@@ -43,7 +43,7 @@ public class ReactNativeWidgetExtensionModule: Module {
         }
 
         Function("updateActivity") { (quarter: Int, scoreLeft: Int, scoreRight: Int, bottomText: String) -> Void in
-            let logger = Logger()
+            let logger = Logger(logHandlers: [])
             logger.info("updateActivity()")
             
             if #available(iOS 16.2, *) {
@@ -62,7 +62,7 @@ public class ReactNativeWidgetExtensionModule: Module {
         }
         
         Function("endActivity") { (quarter: Int, scoreLeft: Int, scoreRight: Int, bottomText: String) -> Void in
-            let logger = Logger()
+            let logger = Logger(logHandlers: [])
             logger.info("endActivity()")
             
             if #available(iOS 16.2, *) {

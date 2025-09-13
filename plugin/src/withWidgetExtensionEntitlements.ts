@@ -9,14 +9,15 @@ export const withWidgetExtensionEntitlements: ConfigPlugin<{
   targetName: string;
   targetPath: string;
   groupIdentifier: string;
+  keychainAccessGroup?: string;
   appleSignin: boolean;
-}> = (config, { targetName, groupIdentifier }) => {
+}> = (config, { targetName, groupIdentifier, keychainAccessGroup }) => {
   return withInfoPlist(config, (config) => {
     const targetPath = path.join(config.modRequest.platformProjectRoot, targetName);
     const filePath = path.join(targetPath, `${targetName}.entitlements`);
 
     const appClipEntitlements = getWidgetExtensionEntitlements(config.ios, {
-      groupIdentifier,
+      groupIdentifier, keychainAccessGroup
     });
 
     fs.mkdirSync(path.dirname(filePath), { recursive: true });

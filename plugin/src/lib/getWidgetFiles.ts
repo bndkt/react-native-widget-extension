@@ -92,7 +92,7 @@ export function copyFileSync(source: string, target: string) {
     targetFile = path.join(target, path.basename(source));
   }
 
-  fs.writeFileSync(targetFile, fs.readFileSync(source));
+  fs.writeFileSync(targetFile, fs.readFileSync(source, "utf8"), "utf8");
 }
 
 function copyFolderRecursiveSync(source: string, target: string) {
