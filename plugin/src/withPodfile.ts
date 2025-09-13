@@ -33,15 +33,16 @@ export const withPodfile: ConfigPlugin<{ targetName: string }> = (
       podFileContent = mergeContents({
         tag: "react-native-widget-extension-1",
         src: podFileContent,
-        newSrc: `installer.pods_project.targets.each do |target|
-          target.build_configurations.each do |config|
-            # Sentry has build errors unless configured as 'YES' for the Sentry target: https://github.com/bndkt/react-native-widget-extension/issues/24
-            config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = target.name == 'Sentry' ? 'YES' : 'No'
-          end
-        end`,
-        anchor:
-          /installer.target_installation_results.pod_target_installation_results/,
-        offset: 0,
+        newSrc: `
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        # Sentry has build errors unless configured as 'YES' for the Sentry target: https://github.com/bndkt/react-native-widget-extension/issues/24
+        config.build_settings['APPLICATION_EXTENSION_API_ONLY'] = target.name == 'Sentry' ? 'YES' : 'No'
+      end
+    end
+`,
+        anchor: /:ccache_enabled => podfile_properties\['apple\.ccacheEnabled'\] == 'true',/,
+        offset: 2,
         comment: "#",
       }).contents;
 
@@ -57,10 +58,12 @@ export const withPodfile: ConfigPlugin<{ targetName: string }> = (
       podFileContent = podFileContent
         .concat(`\n\n# >>> Inserted by react-native-widget-extension\n`)
         .concat(
-          `target '${targetName}' do
-            use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
-            use_frameworks! :linkage => ENV['USE_FRAMEWORKS'].to_sym if ENV['USE_FRAMEWORKS']
-          end`
+          `
+target '${targetName}' do
+  use_frameworks! :linkage => podfile_properties['ios.useFrameworks'].to_sym if podfile_properties['ios.useFrameworks']
+  use_frameworks! :linkage => ENV['USE_FRAMEWORKS'].to_sym if ENV['USE_FRAMEWORKS']
+end
+`
         )
         .concat(`\n# >>> Inserted by react-native-widget-extension`);
 
